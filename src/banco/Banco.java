@@ -15,41 +15,31 @@ import org.firebirdsql.jdbc.FBDriver;
  * @since 30/10/16
  */
 public class Banco {
-    private Connection con;
+    private static Connection con;
     
-    public Connection getConnection() {
-        return con;
-    }
-    
-    public void setConnection( Connection con ) {
-        this.con = con;
-    }
-    
-    private String banco = "jdbc:firebirdsql:127.0.0.1/3050:/Users/Natasha/Desktop/VENDAS.FDB";
-    private String usuario = "SYSDBA";
-    private String senha = "masterkey";
+    private static String banco = "jdbc:firebirdsql:127.0.0.1/3050:/Users/Natasha/Desktop/VENDAS.FDB";
+    private static String usuario = "SYSDBA";
+    private static String senha = "masterkey";
     
     /**
      * Método que abre conexão com banco de dados
      * @throws SQLException
      * @version 2.0
      */
-    public Connection abrirConexao() throws SQLException {
+    public static void abrirConexao() throws SQLException {
         // Registrando driver
         DriverManager.registerDriver( new FBDriver() );
         
         // Estabelecendo conexão
-        this.con = DriverManager.getConnection(this.banco, this.usuario, this.senha);
-        
-        return this.con;
+        con = DriverManager.getConnection(banco, usuario, senha);
     }
     
     /**
      * Método que fecha conexão com banco de dados
      * @throws SQLException 
      */
-    public void fecharConexao() throws SQLException{
-        this.con.close();
+    public static void fecharConexao() throws SQLException{
+        con.close();
     }
     
     /**
