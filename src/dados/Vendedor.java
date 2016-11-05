@@ -1,66 +1,63 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dados;
 
 import java.sql.Date;
 
 /**
  * Classe do Vendedor
- * @author Natasha
- * @version 1.0
+ * @author Natasha Kaweski
+ * @version 2.0
  * @since 30 de outubro de 2016
  */
 public class Vendedor {
     
-    private int codVendedor;
-    private String nomeVendedor;
-    private Date dataCadVendedor;
+    private int codigo;
+    private String nome;
+    private Date data;
 
     public Vendedor(int codVendedor, String nomeVendedor, java.sql.Date dataCadVendedor) {
-        this.codVendedor = codVendedor;
-        this.nomeVendedor = nomeVendedor;
-        this.dataCadVendedor = dataCadVendedor;
+        this.codigo = codVendedor;
+        this.nome = nomeVendedor;
+        this.data = dataCadVendedor;
     }
     
     /*
     Getters e Setters
     */
-    public int getCodVendedor() {
-        return codVendedor;
+    
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setCodVendedor(int codVendedor) {
-        this.codVendedor = codVendedor;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public String getNomeVendedor() {
-        return nomeVendedor;
+    public String getNome() {
+        return nome;
     }
 
-    public void setNomeVendedor(String nomeVendedor) {
-        this.nomeVendedor = nomeVendedor;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
-    public Date getDataCadVendedor() {
-        return dataCadVendedor;
+    public Date getData() {
+        return data;
     }
 
-    public void setDataCadVendedor(Date dataCadVendedor) {
-        this.dataCadVendedor = dataCadVendedor;
+    public void setData(Date data) {
+        this.data = data;
     }
     
     /*
     Função toString()
     */
+    
     @Override
     public String toString() {       
         
         return 
-        "Nome: " + nomeVendedor .trim() + "\n" + 
-        "Data de cadastro do vendedor: " + dataCadVendedor;
+        "Nome: " + nome .trim() + "\n" + 
+        "Data de cadastro do vendedor: " + data;
                 
     }
     

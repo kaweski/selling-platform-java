@@ -9,12 +9,12 @@ package usuario;
  *
  * @author Natasha
  */
-public class JFrameUsuarioSobre extends javax.swing.JFrame {
+public class JDialogUsuarioSobre extends javax.swing.JFrame {
 
     /**
      * Creates new form JFrameUsuarioSobre
      */
-    public JFrameUsuarioSobre() {
+    public JDialogUsuarioSobre() {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -143,20 +143,21 @@ public class JFrameUsuarioSobre extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFrameUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFrameUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFrameUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFrameUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogUsuarioSobre.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFrameUsuarioSobre().setVisible(true);
+                new JDialogUsuarioSobre().setVisible(true);
             }
         });
     }

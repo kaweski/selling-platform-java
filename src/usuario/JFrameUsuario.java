@@ -51,6 +51,11 @@ public class JFrameUsuario extends javax.swing.JFrame {
 
         jButtonVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/basket.png"))); // NOI18N
         jButtonVendas.setText("Vendas");
+        jButtonVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVendasActionPerformed(evt);
+            }
+        });
 
         jButtonProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/book_bookmarks.png"))); // NOI18N
         jButtonProdutos.setText("Produtos");
@@ -156,9 +161,13 @@ public class JFrameUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemArquivoSairActionPerformed
 
     private void jMenuItemArquivoSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArquivoSobreActionPerformed
-        JFrameUsuarioSobre sobre = new JFrameUsuarioSobre();
+        JDialogUsuarioSobre sobre = new JDialogUsuarioSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_jMenuItemArquivoSobreActionPerformed
+
+    private void jButtonVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendasActionPerformed
+
+    }//GEN-LAST:event_jButtonVendasActionPerformed
 
     /**
      * @param args the command line arguments

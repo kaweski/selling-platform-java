@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dados;
 
 import java.sql.Date;
 
 /**
  * Classe do Cliente
- * @author Natasha
- * @version 1.0
+ * @author Natasha Kaweski
+ * @version 2.0
  * @since 30 de outubro de 2016
  */
 public class Cliente {
@@ -24,9 +19,23 @@ public class Cliente {
     private String cep;
     private String telefone;
     private String email;
-    private Date dataCadCliente;
+    private Date data;
     
-    public Cliente(int codCliente, String nome, String endereço, String bairro, String cidade, String uf, String cep, String telefone, String email, java.sql.Date dataCadCliente) {
+    /**
+     * Método constutor da classe Cliente
+     * @param codCliente
+     * @param nome
+     * @param endereço
+     * @param bairro
+     * @param cidade
+     * @param uf
+     * @param cep
+     * @param telefone
+     * @param email
+     * @param dataCadCliente
+     */
+    
+    public Cliente(int codCliente, String nome, String endereço, String bairro, String cidade, String uf, String cep, String telefone, String email, Date dataCadCliente) {
         this.codCliente = codCliente;
         this.nome = nome;
         this.endereço = endereço;
@@ -36,7 +45,7 @@ public class Cliente {
         this.cep = cep;
         this.telefone = telefone;
         this.email = email;
-        this.dataCadCliente = dataCadCliente;
+        this.data = dataCadCliente;
     }
     
     /*
@@ -115,17 +124,18 @@ public class Cliente {
         this.email = email;
     }
 
-    public Date getDataCadCliente() {
-        return dataCadCliente;
+    public Date getData() {
+        return data;
     }
 
-    public void setDataCadCliente(Date dataCadCliente) {
-        this.dataCadCliente = dataCadCliente;
+    public void setData(Date data) {
+        this.data = data;
     }
     
     /*
     Função toString()
     */
+    
     @Override
     public String toString() {
         
@@ -138,7 +148,7 @@ public class Cliente {
         "CEP: " + cep.trim() + "\n" +
         "Telefone: " + telefone.trim() + "\n" + 
         "Email: " + email.trim() + "\n" +
-        "Data do Cadastro do Cliente: " + dataCadCliente;
+        "Data do Cadastro do Cliente: " + data;
         
     }
     
