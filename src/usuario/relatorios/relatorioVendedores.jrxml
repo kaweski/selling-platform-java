@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelacaoVendedor" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="596fad39-a59a-43f9-8f2b-f2a1b48b873f">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="ano" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT NOME_VENDEDOR, MIN(DATA_VENDA) ULTIMA_VENDA, MAX(DATA_VENDA) PRIMEIRA_VENDA, COUNT(DISTINCT VENDAS.CODVENDA) AS QTDE, SUM(VALOR) AS TOTAL_VENDA FROM VENDAS
+JOIN VENDEDORES ON VENDAS.COD_VENDEDOR = VENDEDORES.COD_VENDEDOR
+JOIN ITENS ON VENDAS.CODVENDA = ITENS.CODVENDA
+WHERE EXTRACT(YEAR FROM DATA_VENDA) = $P{ano}
+GROUP BY NOME_VENDEDOR]]>
+	</queryString>
+	<field name="NOME_VENDEDOR" class="java.lang.String"/>
+	<field name="ULTIMA_VENDA" class="java.sql.Date"/>
+	<field name="PRIMEIRA_VENDA" class="java.sql.Date"/>
+	<field name="QTDE" class="java.lang.Integer"/>
+	<field name="TOTAL_VENDA" class="java.math.BigDecimal"/>
+	<variable name="totalVendido" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{TOTAL_VENDA}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<staticText>
+				<reportElement x="136" y="0" width="274" height="38" uuid="c2367330-39be-46e4-ba37-e61dbb59203b"/>
+				<textElement textAlignment="Center">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[Relatório de Vendedores]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="37" width="555" height="1" uuid="337eebcb-dd6d-4e0b-9c38-56b3cc2c6202"/>
+			</line>
+			<textField>
+				<reportElement x="432" y="0" width="80" height="20" uuid="575c6b90-01a5-458f-ad56-e92b8da6a1e8"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="142cc5a3-2159-4480-bb47-fbe051277f99"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="162" height="20" uuid="65b3f5bf-cf54-4008-93b6-a8cf2479a6c1"/>
+				<text><![CDATA[NOME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="162" y="0" width="100" height="20" uuid="455ee642-2952-43d1-8873-50849205afdc"/>
+				<text><![CDATA[PRIMEIRA VENDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="262" y="0" width="100" height="20" uuid="5763a678-c577-4dff-a9ca-3333ed0b7e18"/>
+				<text><![CDATA[ULTIMA VENDA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="100" height="20" uuid="81566ced-98ef-4e18-b4de-03c88828f624"/>
+				<text><![CDATA[QUANTIDADE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="462" y="0" width="93" height="20" uuid="c4ddaf14-1f37-431d-b82e-18f908e0e2cb"/>
+				<text><![CDATA[VALOR]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="162" height="20" uuid="b4d2a6e1-23a1-4c4e-ab76-a857381d4391"/>
+				<textFieldExpression><![CDATA[$F{NOME_VENDEDOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="162" y="0" width="100" height="20" uuid="1220f2ba-e2d0-466c-88cc-c907041134c1"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date($F{PRIMEIRA_VENDA}.getTime()))]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="262" y="0" width="100" height="20" uuid="189161b9-bc77-4ea5-a825-a608d4872b51"/>
+				<textFieldExpression><![CDATA[new java.text.SimpleDateFormat("dd/MM/yyyy").format(new java.util.Date($F{ULTIMA_VENDA}.getTime()))]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0;###0-">
+				<reportElement x="362" y="0" width="100" height="20" uuid="bcbcb098-11c0-4c86-a2ac-e0614a6697db"/>
+				<textFieldExpression><![CDATA[$F{QTDE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00">
+				<reportElement x="462" y="0" width="93" height="20" uuid="edaa0786-67f4-4d36-beab-956b10be5999"/>
+				<textFieldExpression><![CDATA[$F{TOTAL_VENDA}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="040c0491-b102-430a-b6a3-44c3a9aa06bd"/>
+			</line>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="b66d3993-24ad-484b-9d51-cbd49cdd2209"/>
+				<text><![CDATA[TOTAL VENDAS :]]></text>
+			</staticText>
+			<textField pattern="#,##0.00">
+				<reportElement x="100" y="0" width="100" height="20" uuid="de566ed0-3ac2-429b-a858-38112df5b564"/>
+				<textFieldExpression><![CDATA[$V{totalVendido}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -5,7 +5,7 @@ import java.sql.Date;
 /**
  * Classe do Vendedor
  * @author Natasha Kaweski
- * @version 2.0
+ * @version 2.1
  * @since 30 de outubro de 2016
  */
 public class Vendedor {
@@ -14,7 +14,7 @@ public class Vendedor {
     private String nome;
     private Date data;
 
-    public Vendedor(int codVendedor, String nomeVendedor, java.sql.Date dataCadVendedor) {
+    public Vendedor(int codVendedor, String nomeVendedor, Date dataCadVendedor) {
         this.codigo = codVendedor;
         this.nome = nomeVendedor;
         this.data = dataCadVendedor;

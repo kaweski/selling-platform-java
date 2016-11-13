@@ -7,8 +7,8 @@ import usuario.JFrameUsuario;
 
 /**
  * Método Main - Principal
- * @author Natasha
- * @version 1.0
+ * @author Natasha Kaweski
+ * @version 1.1
  * @since 30 de outubro de 2016
  */
 public class Main {

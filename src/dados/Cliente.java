@@ -5,27 +5,27 @@ import java.sql.Date;
 /**
  * Classe do Cliente
  * @author Natasha Kaweski
- * @version 2.0
+ * @version 2.1
  * @since 30 de outubro de 2016
  */
 public class Cliente {
     
     private int codCliente;
     private String nome;
-    private String endereço;
+    private String endereco;
     private String bairro;
     private String cidade;
     private String uf;
     private String cep;
     private String telefone;
     private String email;
-    private Date data;
+    private Date dataCadCliente;
     
     /**
      * Método constutor da classe Cliente
      * @param codCliente
      * @param nome
-     * @param endereço
+     * @param endereco
      * @param bairro
      * @param cidade
      * @param uf
@@ -35,18 +35,29 @@ public class Cliente {
      * @param dataCadCliente
      */
     
-    public Cliente(int codCliente, String nome, String endereço, String bairro, String cidade, String uf, String cep, String telefone, String email, Date dataCadCliente) {
+    public Cliente(int codCliente, String nome, String endereco, String bairro, String cidade, String uf, String cep, String telefone, String email, Date dataCadCliente) {
         this.codCliente = codCliente;
         this.nome = nome;
-        this.endereço = endereço;
+        this.endereco = endereco;
         this.bairro = bairro;
         this.cidade = cidade;
         this.uf = uf;
         this.cep = cep;
         this.telefone = telefone;
         this.email = email;
-        this.data = dataCadCliente;
+        this.dataCadCliente = dataCadCliente;
     }
+
+//    public Cliente(int codigo, String nome, String endereco, String bairro, String cidade, String estado, String cep, Date data) {
+//        this.codCliente = codigo;
+//        this.nome = nome;
+//        this.endereco = endereco;
+//        this.bairro = bairro;
+//        this.cidade = cidade;
+//        this.uf = estado;
+//        this.cep = cep;
+//        this.dataCadCliente = data;
+//    }
     
     /*
     Getters e Setters
@@ -68,12 +79,12 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getEndereço() {
-        return endereço;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEndereço(String endereço) {
-        this.endereço = endereço;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getBairro() {
@@ -124,12 +135,12 @@ public class Cliente {
         this.email = email;
     }
 
-    public Date getData() {
-        return data;
+    public Date getDataCadCliente() {
+        return dataCadCliente;
     }
 
-    public void setData(Date data) {
-        this.data = data;
+    public void setDataCadCliente(Date dataCadCliente) {
+        this.dataCadCliente = dataCadCliente;
     }
     
     /*
@@ -141,14 +152,14 @@ public class Cliente {
         
         return "Codigo do cliente: " + codCliente+ "\n" +
         "Nome: " + nome.trim() + "\n" + 
-        "Endereço: " + endereço.trim() + "\n" +
+        "Endereço: " + endereco.trim() + "\n" +
         "Bairro: " + bairro.trim() + "\n" +
         "Cidade: " + cidade.trim() + "\n" +
         "UF: " + uf.trim() + "\n" +
         "CEP: " + cep.trim() + "\n" +
         "Telefone: " + telefone.trim() + "\n" + 
         "Email: " + email.trim() + "\n" +
-        "Data do Cadastro do Cliente: " + data;
+        "Data do Cadastro do Cliente: " + dataCadCliente;
         
     }
     

@@ -6,8 +6,8 @@ import utilitarios.LtpUtil;
 /**
  * Classe do Produto
  * @author Natasha Kaweski
- * @version 2.1
- * @since 30 de outubro de 2016
+ * @version 2.2
+ * @since 30/10/16
  */
 public class Produto {
 
@@ -26,7 +26,7 @@ public class Produto {
      * @param dataPreco 
      */
     
-    public Produto(int codProduto, String nome, int codUnidade, double precoUnit, java.sql.Date dataPreco) {
+    public Produto(int codProduto, String nome, int codUnidade, double precoUnit, Date dataPreco) {
         this.codProduto = codProduto;
         this.nome = nome;
         this.unidade = codUnidade;

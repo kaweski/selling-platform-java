@@ -5,20 +5,30 @@
  */
 package usuario;
 
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import utilitarios.LtpUtil;
+
 /**
- *
+ * Classe do JFrameUsuario
  * @author Natasha
+ * @since 30/10/16
+ * @version 2.0
  */
 public class JFrameUsuario extends javax.swing.JFrame {
-
+    
     /**
-     * Creates new form JFrameUsuario
+     * Método que cria um novo jFrame
+     * @author Natasha Kaweski
+     * @since 30/10/16
+     * @version 1.0
      */
     public JFrameUsuario() {
         initComponents();
-        setVisible(true);
+        this.setSize( 600, 400 );
         setLocationRelativeTo(null);
-        setSize( 600, 400 );
+        setVisible(true);
     }
 
     /**
@@ -33,7 +43,7 @@ public class JFrameUsuario extends javax.swing.JFrame {
         jButtonVendas = new javax.swing.JButton();
         jButtonProdutos = new javax.swing.JButton();
         jButtonClientes = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonVendedores = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -59,13 +69,28 @@ public class JFrameUsuario extends javax.swing.JFrame {
 
         jButtonProdutos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/book_bookmarks.png"))); // NOI18N
         jButtonProdutos.setText("Produtos");
+        jButtonProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProdutosActionPerformed(evt);
+            }
+        });
 
         jButtonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/users.png"))); // NOI18N
         jButtonClientes.setText("Clientes");
         jButtonClientes.setToolTipText("");
+        jButtonClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonClientesActionPerformed(evt);
+            }
+        });
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/user_business.png"))); // NOI18N
-        jButton1.setText("Vendedores");
+        jButtonVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/usuario/imagens/user_business.png"))); // NOI18N
+        jButtonVendedores.setText("Vendedores");
+        jButtonVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonVendedoresActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 8)); // NOI18N
         jLabel1.setText("Naweskil © Copyright 2016");
@@ -98,15 +123,35 @@ public class JFrameUsuario extends javax.swing.JFrame {
         jMenuRelatorios.setText("Relatórios");
 
         jMenuItemRelatoriosVendas.setText("Vendas");
+        jMenuItemRelatoriosVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRelatoriosVendasActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuItemRelatoriosVendas);
 
         jMenuItemRelatoriosProdutos.setText("Produtos");
+        jMenuItemRelatoriosProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRelatoriosProdutosActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuItemRelatoriosProdutos);
 
         jMenuItemRelatoriosClientes.setText("Clientes");
+        jMenuItemRelatoriosClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRelatoriosClientesActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuItemRelatoriosClientes);
 
         jMenuItemRelatoriosVendedores.setText("Vendedores");
+        jMenuItemRelatoriosVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRelatoriosVendedoresActionPerformed(evt);
+            }
+        });
         jMenuRelatorios.add(jMenuItemRelatoriosVendedores);
 
         jMenuBar1.add(jMenuRelatorios);
@@ -132,7 +177,7 @@ public class JFrameUsuario extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButtonClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jButtonVendedores, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -147,7 +192,7 @@ public class JFrameUsuario extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButtonClientes)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonVendedores))
                 .addGap(23, 23, 23)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 17, Short.MAX_VALUE)
                 .addContainerGap())
@@ -155,18 +200,124 @@ public class JFrameUsuario extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    /**
+     * Método que fecha a janela
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 30/10/16
+     * @version 1.1
+     */
     private void jMenuItemArquivoSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArquivoSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_jMenuItemArquivoSairActionPerformed
-
+    
+    /**
+     * Método que abre a janela de Sobre
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 30/10/16
+     * @version 1.1
+     */
     private void jMenuItemArquivoSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemArquivoSobreActionPerformed
         JDialogUsuarioSobre sobre = new JDialogUsuarioSobre();
         sobre.setVisible(true);
     }//GEN-LAST:event_jMenuItemArquivoSobreActionPerformed
+    
+    /**
+     * Método que abre a janela de Clientes
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 30/10/16
+     * @version 1.1
+     */
+    private void jButtonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonClientesActionPerformed
+        JFrameCliente cliente = new JFrameCliente();
+        cliente.setVisible(true);
+    }//GEN-LAST:event_jButtonClientesActionPerformed
+    
+    /**
+     * Método que abre a janela de seleção de datas para o relatório de Clientes
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 11/11/16
+     * @version 1.0
+     */
+    private void jMenuItemRelatoriosClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRelatoriosClientesActionPerformed
+        JFrameiReportCliente iReportCliente = new JFrameiReportCliente();
+        iReportCliente.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRelatoriosClientesActionPerformed
 
+    /**
+     * Método que abre a janela de Vendedores
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 11/11/16
+     * @version 1.1
+     */
+    private void jButtonVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendedoresActionPerformed
+        JFrameVendedores vendedor = new JFrameVendedores();
+        vendedor.setVisible(true);
+    }//GEN-LAST:event_jButtonVendedoresActionPerformed
+    
+    /**
+     * Método que abre a janela de seleção de datas para o relatório de Vendedores
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 12/11/16
+     * @version 1.0
+     */
+    private void jMenuItemRelatoriosVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRelatoriosVendedoresActionPerformed
+        JFrameiReportVendedor iReportVendedores = new JFrameiReportVendedor();
+        iReportVendedores.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRelatoriosVendedoresActionPerformed
+
+    /**
+     * Método que abre a janela de Produtos
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 12/11/16
+     * @version 1.1
+     */
+    private void jButtonProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProdutosActionPerformed
+        JFrameProdutos produtos = new JFrameProdutos();
+        produtos.setVisible(true);
+    }//GEN-LAST:event_jButtonProdutosActionPerformed
+    
+    /**
+     * Método que abre a janela de seleção de datas para o relatório de Produto
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 12/11/16
+     * @version 1.0
+     */
+    private void jMenuItemRelatoriosProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRelatoriosProdutosActionPerformed
+        JFrameiReportProdutos iReportProduto = new JFrameiReportProdutos();
+        iReportProduto.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRelatoriosProdutosActionPerformed
+
+        /**
+     * Método que abre a janela de seleção de datas para o relatório de Vendas
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 13/11/16
+     * @version 1.0
+     */
+    private void jMenuItemRelatoriosVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemRelatoriosVendasActionPerformed
+        JFrameiReportVendas iReportVendas = new JFrameiReportVendas();
+        iReportVendas.setVisible(true);
+    }//GEN-LAST:event_jMenuItemRelatoriosVendasActionPerformed
+
+    /**
+     * Método que abre a janela de Vendas
+     * @param evt 
+     * @author Natasha Kaweski
+     * @since 13/11/16
+     * @version 1.0
+     */
     private void jButtonVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVendasActionPerformed
-
+        JFrameVendas vendas = new JFrameVendas();
+        vendas.setVisible(true);
     }//GEN-LAST:event_jButtonVendasActionPerformed
 
     /**
@@ -205,10 +356,10 @@ public class JFrameUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonClientes;
     private javax.swing.JButton jButtonProdutos;
     private javax.swing.JButton jButtonVendas;
+    private javax.swing.JButton jButtonVendedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenuArquivo;
