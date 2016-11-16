@@ -1,21 +1,25 @@
 package banco;
 
 import dados.Cliente;
+import dados.Item;
 import dados.Produto;
+import dados.Venda;
 import dados.Vendedor;
 import erro.SisVendasException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.sql.Statement;
+import java.util.ArrayList;
 import org.firebirdsql.jdbc.FBDriver;
 
 /**
  * Classe geral de conexão com banco de dados
  * @author Natasha
- * @version 2.1
+ * @version 2.2
  * @since 30/10/16
  * 
  * Índice:
@@ -34,6 +38,7 @@ public class Banco {
     
     public static Connection con;
     
+//    private static String banco = "jdbc:firebirdsql:server1b/3050:D:/PROGRAM FILES/FIREBIRD/LTP4/BDVENDAS.GDB";
     private static String banco = "jdbc:firebirdsql:127.0.0.1/3050:/Users/Natasha/Desktop/VENDAS.FDB";
     private static String usuario = "SYSDBA";
     private static String senha = "masterkey";
@@ -71,6 +76,7 @@ public class Banco {
     /**
      * Método que pesquisa o cliente pelo código parametrizado
      * @param codigo
+     * @return objSQL
      * @throws SQLException
      * @author Natasha Kaweski
      * @since 5/11/16
@@ -89,6 +95,7 @@ public class Banco {
     /**
      * Método que pesquisa o cliente pelo nome parametrizado
      * @param nome
+     * @return objSQL
      * @throws SQLException
      * @author Natasha Kaweski
      * @since 5/11/16
@@ -223,6 +230,7 @@ public class Banco {
     /**
      * Método que pesquisa o vendedor pelo nome parametrizado
      * @param nome
+     * @return objSQL
      * @throws SQLException
      * @author Natasha Kaweski
      * @since 12/11/16
@@ -323,6 +331,7 @@ public class Banco {
     /**
      * Método que pesquisa o produto pelo nome parametrizado
      * @param nome
+     * @return ObjSQL
      * @throws SQLException
      * @author Natasha Kaweski
      * @since 12/11/16
@@ -404,4 +413,180 @@ public class Banco {
     /* ========================================================================================================
      * 5. VENDAS
      * ===================================================================================================== */
+    
+    /**
+     * Método que pesquisa a venda pelo código parametrizado
+     * @param codigo
+     * @return objSQL
+     * @throws SQLException
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static ResultSet pesquisarVendaCodigo(int codigo) throws SQLException {
+        // Query de busca
+        String selectQuerySQL = "SELECT VENDAS.CODVENDA, NOME, NOME_VENDEDOR, DATA_VENDA, PRODUTO, QUANTIDADE, VALOR FROM VENDAS "
+                + "INNER JOIN CLIENTES ON CLIENTES.CODCLIENTE = VENDAS.CODCLIENTE "
+                + "INNER JOIN VENDEDORES ON VENDEDORES.COD_VENDEDOR = VENDAS.COD_VENDEDOR "
+                + "INNER JOIN ITENS ON ITENS.CODVENDA = VENDAS.CODVENDA "
+                + "INNER JOIN TABPRODUTOS ON TABPRODUTOS.CODPRODUTO = ITENS.CODPRODUTO "
+                + "WHERE VENDAS.CODVENDA = ?";
+        PreparedStatement objSQL = con.prepareStatement(selectQuerySQL);
+
+        // Executa a query
+        objSQL.setInt(1, codigo);
+        return objSQL.executeQuery();
+    }
+    
+    /**
+     * Método que pesquisa a venda pelo período parametrizado
+     * @param data_inicio
+     * @param data_final
+     * @return objSQL
+     * @throws SQLException
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static ResultSet pesquisarVendaPeriodo(Date data_inicio, Date data_final) throws SQLException {
+        // Query de busca
+        String selectQuerySQL = "SELECT VENDAS.CODVENDA, NOME, NOME_VENDEDOR, DATA_VENDA, PRODUTO, QUANTIDADE, VALOR FROM VENDAS "
+                + "INNER JOIN CLIENTES ON CLIENTES.CODCLIENTE = VENDAS.CODCLIENTE "
+                + "INNER JOIN VENDEDORES ON VENDEDORES.COD_VENDEDOR = VENDAS.COD_VENDEDOR "
+                + "INNER JOIN ITENS ON ITENS.CODVENDA = VENDAS.CODVENDA "
+                + "INNER JOIN TABPRODUTOS ON TABPRODUTOS.CODPRODUTO = ITENS.CODPRODUTO "
+                + "WHERE VENDAS.DATA_VENDA BETWEEN ? AND ?"
+                + "ORDER BY CODVENDA";
+        PreparedStatement objSQL = con.prepareStatement(selectQuerySQL);
+
+        // Executa a query
+        objSQL.setDate(1, data_inicio);
+        objSQL.setDate(1, data_final);
+        return objSQL.executeQuery();
+    }
+    
+    /**
+     * Método que busca todos os vendedores no banco de dados
+     * @throws SQLException 
+     * @return objSQL
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static ArrayList<Vendedor> buscarVendedores() throws SQLException { 
+        String selectQuerySQL = "SELECT * FROM VENDEDORES";
+        PreparedStatement objSQL = con.prepareStatement(selectQuerySQL);
+        ResultSet resposta = objSQL.executeQuery();
+        
+        ArrayList<Vendedor> listaVendedores = new ArrayList<>();
+        
+        while (resposta.next()) {
+            Vendedor objVendedor = new Vendedor(resposta.getInt("COD_VENDEDOR"), resposta.getString("NOME_VENDEDOR"), resposta.getDate("DATA_CAD_VENDEDOR"));
+//            objVendedor.setCodigo(resposta.getInt("COD_VENDEDOR"));
+            listaVendedores.add(objVendedor);
+	}         
+        return listaVendedores;
+    }
+    
+    /**
+     * Método que busca todos os clientes no banco de dados
+     * @throws SQLException 
+     * @return objSQL
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static ArrayList<Cliente> buscarClientes() throws SQLException { 
+        String selectQuerySQL = "SELECT * FROM CLIENTES";
+        PreparedStatement objSQL = con.prepareStatement(selectQuerySQL);
+        ResultSet resposta = objSQL.executeQuery();
+        
+        ArrayList<Cliente> listaClientes = new ArrayList<>();
+        
+        while (resposta.next()) {
+            Cliente objCliente = new Cliente(
+                    resposta.getInt("CODCLIENTE"), 
+                    resposta.getString("NOME"), 
+                    resposta.getString("ENDERECO"), 
+                    resposta.getString("BAIRRO"), 
+                    resposta.getString("CIDADE"), 
+                    resposta.getString("UF"), 
+                    resposta.getString("CEP"), 
+                    resposta.getString("TELEFONE"), 
+                    resposta.getString("E_MAIL"), 
+                    resposta.getDate("DATA_CAD_CLIENTE")
+            );
+//            objCliente.setCodCliente(resposta.getInt("CODCLIENTE"));
+            listaClientes.add(objCliente);
+	}         
+        return listaClientes;
+    }
+    
+    /**
+     * Método que busca todos os rodutos no banco de dados
+     * @throws SQLException 
+     * @return objSQL
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static ArrayList<Produto> buscarProduto() throws SQLException { 
+        String selectQuerySQL = "SELECT * FROM TABPRODUTOS";
+        PreparedStatement objSQL = con.prepareStatement(selectQuerySQL);
+        ResultSet resposta = objSQL.executeQuery();
+        
+        ArrayList<Produto> listaProdutos = new ArrayList<>();
+        
+        while (resposta.next()) {
+            Produto objProduto = new Produto(
+                    resposta.getInt("CODPRODUTO"),
+                    resposta.getString("PRODUTO"), 
+                    resposta.getInt("CODUNIDADE"), 
+                    resposta.getDouble("PRECO"),
+                    resposta.getDate("DATAPRECO")
+            );
+            objProduto.setCodProduto(resposta.getInt("CODPRODUTO"));
+            listaProdutos.add(objProduto);
+	}         
+        return listaProdutos;
+    }
+    
+    /**
+     * Método que insere uma nova venda no banco
+     * @param venda
+     * @throws SQLException 
+     * @author Natasha Kaweski
+     * @since 15/11/16
+     * @version 1.0
+     */
+    public static void incluirVenda(Venda venda) throws SQLException {
+        String insertQuerySQLVendas = "INSERT INTO VENDAS (COD_VENDEDOR, CODCLIENTE, DATA_VENDA) VALUES (?, ?, ?)";
+        PreparedStatement objSQLVendas = con.prepareStatement(insertQuerySQLVendas, Statement.RETURN_GENERATED_KEYS);
+        
+        objSQLVendas.setInt(1, venda.getCodVendedor());
+        objSQLVendas.setInt(2, venda.getCodCliente());
+        objSQLVendas.setDate(3, venda.getDataVenda());
+        objSQLVendas.executeUpdate();
+        
+        System.out.print(venda.getDataVenda());
+
+        /* Gerando uma nova key */
+        int numero;
+        ResultSet generatedKeys = objSQLVendas.getGeneratedKeys();
+        
+        if (generatedKeys != null && generatedKeys.next()) {
+            numero = generatedKeys.getInt(1);
+            for (Item objItem : venda.getListaItem()) {
+                String insertQuerySQLItens = "INSERT INTO ITENS (CODVENDA, CODPRODUTO, QUANTIDADE, VALOR) values (?, ?, ?, ?)";
+                PreparedStatement objSQLItens = con.prepareStatement(insertQuerySQLItens);
+                objSQLItens.setInt(1, numero); // Seta a nova key para o item cadastrado
+                objSQLItens.setInt(2, objItem.getCodProduto());
+                objSQLItens.setInt(3, objItem.getQuantidade());
+                objSQLItens.setDouble(4, objItem.getValor());
+                objSQLItens.executeUpdate();
+            }
+        } else {
+            throw new SQLException("Creating user failed, no ID obtained.");
+        }
+    }
 }

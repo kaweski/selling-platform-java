@@ -38,7 +38,6 @@ public class JDialogUsuarioSobre extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jPanelDescricao = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setAlwaysOnTop(true);
@@ -99,19 +98,6 @@ public class JDialogUsuarioSobre extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Geral", jPanelGeral);
 
-        javax.swing.GroupLayout jPanelDescricaoLayout = new javax.swing.GroupLayout(jPanelDescricao);
-        jPanelDescricao.setLayout(jPanelDescricaoLayout);
-        jPanelDescricaoLayout.setHorizontalGroup(
-            jPanelDescricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 348, Short.MAX_VALUE)
-        );
-        jPanelDescricaoLayout.setVerticalGroup(
-            jPanelDescricaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 312, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Descrição", jPanelDescricao);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,7 +156,6 @@ public class JDialogUsuarioSobre extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelCurso;
     private javax.swing.JLabel jLabelFumec;
-    private javax.swing.JPanel jPanelDescricao;
     private javax.swing.JPanel jPanelGeral;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
